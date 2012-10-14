@@ -4,7 +4,7 @@ var INIT = 0; // waiting for alex to connect
 var PLAYER_JOIN = 1; // waiting for contestants
 var WAIT_FOR_NAMES = 2;
 var WAIT_FOR_START = 3; // wait for alex to start the game
-var DISP_CATA_R1 = 4; 
+var DISP_CATA = 4; 
 var GRID_SELECT_WAIT = 5; //waiting for a player to pick a square
 var BUZZER_WAIT = 6; //waiting for a player to buzz in before time expires
 var ALEX_CONFIRM = 7; //waiting for alex to confirm a correct solution or not
@@ -13,13 +13,13 @@ var SHOW_SOLUTION = 8; //waiting for a player to buzz in before time expires
 var DISP_DOUBLE_J = 9;
 var WAIT_FOR_WAGER = 10;
 var ALEX_CONFIRM_DOUBLE_J = 11;
-var DISP_CATA_R2 = 12;
 var WAIT_FOR_FINAL_BID = 13;
 var WAIT_FOR_FINAL_RESP = 14;
 
 
 var system-state = INIT;
-
+var round = 0;
+var current-player = 0;
 
 
 var sys = require('util')
@@ -112,6 +112,22 @@ io.sockets.on('connection', function (socket) {
   });
 
 
+  Alex.on('startgame', function(data){
+    if(system-state = WAIT_FOR_START){
+        //TODO
+      //display.emit('show_catagories', catagories);
+      system-state = DISP_CATA; 
+      round = 1;
+
+    }
+  }
+
+  //display.on('display_done', function(data){
+  // //TODO
+  //   system-state = GRID_SELECT_WAIT;
+  //   current-player = 1;
+  //   // TODO: round two should have the player in the lead
+  // }
 
 
   Player1.on('buzz', function (data) {
@@ -132,6 +148,7 @@ io.sockets.on('connection', function (socket) {
       activePlayer = 3;
     }
   });
+
 
 
 
